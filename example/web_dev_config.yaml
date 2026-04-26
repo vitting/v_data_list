@@ -1,0 +1,2 @@
+server:
+  port: 8080 # Specifies the port <int> for the development server
