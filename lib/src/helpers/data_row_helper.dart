@@ -1,0 +1,44 @@
+import 'package:v_data_list/src/row/models/v_data_list_row_cell_data.dart';
+import 'package:v_data_list/src/type_definitions/v_data_list_type_definitions.dart';
+
+/// A helper class to generate a DataRowList from a ColumnDefinitionMap and an iterable of iterable of strings representing the data
+class DataRowHelper {
+  /// Helper method to generate a DataRowList from a ColumnDefinitionMap and an iterable of iterable of strings representing the data
+  static VDataListDataRowList generateDataRowListFromListOfData(ColumnDefinitionMap columnDefs, Iterable<Iterable<String>> data) {
+    final List<VDataListDataRow> dataRowList = [];
+    for (var row in data) {
+      final Map<String, VDataListRowCellData> dataRow = {};
+      int index = 0;
+      for (var cell in row) {
+        if (index < columnDefs.length) {
+          final columnId = columnDefs.keys.elementAt(index);
+          dataRow[columnId] = VDataListRowCellData(value: cell);
+        }
+        index++;
+      }
+      dataRowList.add(dataRow);
+    }
+    return dataRowList;
+  }
+
+  static VDataListDataRowList loadMoreDataFromListOfData(
+    ColumnDefinitionMap columnDefs,
+    VDataListDataRowList existingData,
+    Iterable<Iterable<String>> newData,
+  ) {
+    final newDataRows = generateDataRowListFromListOfData(columnDefs, newData);
+    return [...existingData, ...newDataRows];
+  }
+
+  static VDataListDataRowList loadMoreData(VDataListDataRowList existingData, VDataListDataRowList newData) {
+    return [...existingData, ...newData];
+  }
+
+  static Map<String, String> getRowDataAsMap(VDataListDataRow dataRow) {
+    final Map<String, String> rowDataMap = {};
+    dataRow.forEach((key, value) {
+      rowDataMap[key] = value.value;
+    });
+    return rowDataMap;
+  }
+}

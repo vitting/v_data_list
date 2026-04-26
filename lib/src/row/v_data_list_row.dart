@@ -1,0 +1,121 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:v_data_list/src/config/v_data_list_config.dart';
+import 'package:v_data_list/src/enums/v_data_list_enums.dart';
+import 'package:v_data_list/src/row/models/v_data_list_row_cell_data.dart';
+import 'package:v_data_list/src/row/v_data_list_row_cell.dart';
+import 'package:v_data_list/src/theme/v_data_list_theme.dart';
+import 'package:v_data_list/src/type_definitions/v_data_list_type_definitions.dart';
+
+class VDataListRow extends StatefulWidget {
+  final VDataListOnRowTap? onRowTap;
+  final VDataListOnLongPressRow? onLongPressRow;
+  final VDataListOnLongPressRowCopyValue? onLongPressRowCopyValue;
+  final VDataListRowCellStyleBuilder? rowCellStyleBuilder;
+  final ColumnDefinitionMap columnDefinitions;
+  final VDataListDataRow rowData;
+  final VDataListConfig config;
+  final bool isEven;
+  final RowTheme? rowTheme;
+
+  const VDataListRow({
+    super.key,
+    required this.columnDefinitions,
+    required this.rowData,
+    required this.config,
+    this.isEven = false,
+    this.onRowTap,
+    this.onLongPressRow,
+    this.onLongPressRowCopyValue,
+    this.rowCellStyleBuilder,
+    this.rowTheme,
+  });
+
+  @override
+  State<VDataListRow> createState() => _VDataListRowState();
+}
+
+class _VDataListRowState extends State<VDataListRow> {
+  bool _isHovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = widget.rowTheme ?? VDataListTheme.of(context).rowTheme;
+    return MouseRegion(
+      cursor: widget.config.showRowClickHandler && !widget.config.triggerOnRowTapWhenRowClickHandlerIsShown
+          ? MouseCursor.defer
+          : SystemMouseCursors.click,
+      onHover: (event) {
+        setState(() {
+          _isHovered = true;
+        });
+      },
+      onExit: (event) {
+        setState(() {
+          _isHovered = false;
+        });
+      },
+      child: GestureDetector(
+        onTap: widget.config.showRowClickHandler && !widget.config.triggerOnRowTapWhenRowClickHandlerIsShown
+            ? null
+            : () {
+                widget.onRowTap?.call(widget.rowData, widget.columnDefinitions);
+              },
+        child: Container(
+          decoration: BoxDecoration(
+            color: widget.config.showRowHoverColor && _isHovered
+                ? theme.hoverBackgroundColor
+                : widget.config.showRowEvenBackgroundColor && widget.isEven
+                ? theme.evenBackgroundColor
+                : theme.backgroundColor,
+            borderRadius: widget.config.rowBorderRadius,
+          ),
+          padding: widget.config.rowPadding,
+          margin: EdgeInsets.only(bottom: widget.config.rowSpacing),
+          child: Row(
+            children: [
+              ...widget.columnDefinitions.entries.map((entry) {
+                final columnDef = entry.value;
+                final data = widget.rowData[columnDef.id] ?? VDataListRowCellData(value: '');
+                final cellStyle = widget.rowCellStyleBuilder?.call(context, columnDef.id, data, columnDef);
+                return VDataListRowCell(
+                  id: columnDef.id,
+                  data: data,
+                  width: columnDef.width,
+                  icon: columnDef.rowCellIcon,
+                  iconPlacement: columnDef.rowCellIconPlacement,
+                  iconSpacing: columnDef.rowCellIconSpacing,
+                  columnSpacing: columnDef.columnSpacing,
+                  config: widget.config,
+                  cellStyle: cellStyle,
+                  onLongPressCell: (value) async {
+                    if (widget.config.longPressToCopyCellValueToClipboard) {
+                      await Clipboard.setData(ClipboardData(text: value));
+                      widget.onLongPressRowCopyValue?.call(columnDef.id, value, widget.rowData, widget.columnDefinitions);
+                    }
+
+                    widget.onLongPressRow?.call(columnDef.id, value, widget.rowData, widget.columnDefinitions);
+                  },
+                );
+              }),
+              if (widget.config.showRowClickHandler)
+                VDataListRowCell(
+                  id: '_trigger_cell_vlist_2000',
+                  data: VDataListRowCellData(value: ''),
+                  config: widget.config,
+                  width: widget.config.rowClickHandlerWidth,
+                  iconPlacement: RowCellIconPlacement.right,
+                  icon: IconButton(
+                    onPressed: () {
+                      widget.onRowTap?.call(widget.rowData, widget.columnDefinitions);
+                    },
+                    icon: widget.config.rowClickHandlerIcon,
+                  ),
+                ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
