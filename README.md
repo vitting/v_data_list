@@ -104,10 +104,8 @@ VDataList(
 
 ### VDataList - Properties
 
-### VDataList
-
 The `VDataList` widget is the main component that renders a dynamic data list with resizable columns, pagination, and various interactive features.
-
+<!-- markdownlint-disable -->
 | Property                     | Type                                   | Required | Default | Description                                                                       |
 | ---------------------------- | -------------------------------------- | -------- | ------- | --------------------------------------------------------------------------------- |
 | `columnDefinitions`          | `ColumnDefinitionMap`                  | ✅        | -       | The column definitions for the list. Keys should match the keys in the data rows. |
@@ -135,7 +133,7 @@ The `VDataList` widget is the main component that renders a dynamic data list wi
 | `totalCountBuilder`          | `VDataListTotalCountBuilder?`          | ❌        | `null`  | Optional custom total count builder widget.                                       |
 | `loadMoreDataSpinnerBuilder` | `VDataListLoadMoreDataSpinnerBuilder?` | ❌        | `null`  | Optional custom loading spinner builder for when more data is being loaded.       |
 | `paginationBuilder`          | `VDataListPaginationBuilder?`          | ❌        | `null`  | Optional custom pagination builder instead of the default pagination widget.      |
-
+<!-- markdownlint-enable -->
 #### Example
 
 ```dart
@@ -153,8 +151,10 @@ VDataList(
 
 ### ColumnDefinition - Properties
 
-The `ColumnDefinition<T>` class defines the structure and behavior of a column in the data list.
+The `ColumnDefinition<T>` class defines the structure and behavior of a column
+in the data list.
 
+<!-- markdownlint-disable -->
 | Property                 | Type                   | Required | Default                     | Description                                                                                                           |
 | ------------------------ | ---------------------- | -------- | --------------------------- | --------------------------------------------------------------------------------------------------------------------- |
 | `id`                     | `String`               | ✅        | -                           | The unique identifier for the column. Used to match the column with the data in the rows.                             |
@@ -168,18 +168,23 @@ The `ColumnDefinition<T>` class defines the structure and behavior of a column i
 | `rowCellIconPlacement`   | `RowCellIconPlacement` | ❌        | `RowCellIconPlacement.left` | The placement of the icon relative to the cell content when `rowCellIcon` is provided.                                |
 | `type`                   | `T?`                   | ❌        | `null`                      | The type of the column, which can be used to determine how to render the cells in this column.                        |
 | `resizableHandlerPinned` | `bool`                 | ❌        | `false`                     | Whether the resize handler of this column is pinned or not.                                                           |
-
+<!-- markdownlint-enable -->
 #### Enums
 
+<!-- markdownlint-disable-next-line -->
 **ColumnSortState**
+
 - `none` - No sorting applied
 - `ascending` - Sort in ascending order
 - `descending` - Sort in descending order
 
+<!-- markdownlint-disable-next-line -->
 **RowCellIconPlacement**
+
 - `left` - Icon placed to the left of cell content
 - `right` - Icon placed to the right of cell content
 
+<!-- markdownlint-disable-next-line -->
 #### Example
 
 ```dart
