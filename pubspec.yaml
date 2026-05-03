@@ -1,6 +1,6 @@
 name: v_data_list
 description: "A Flutter package for displaying data in a list with lazy loading, pagination, sorting, and every element is highly customizable."
-version: 0.0.1
+version: 1.0.0
 homepage: null
 
 environment:

@@ -1,3 +1,5 @@
-## 0.0.1
+<!-- markdownlint-disable -->
+## 1.0.0
 
-* TODO: Describe initial release.
+- First version of VDataList
+

@@ -16,6 +16,10 @@ class CopyToClipboardExample extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Text(
+              'Long press on any cell to copy its value to clipboard. A snackbar will appear at the bottom of the screen showing the copied value.',
+            ),
+            SizedBox(height: 16),
             Expanded(
               child: VDataList(
                 columnDefinitions: columnDefs,
