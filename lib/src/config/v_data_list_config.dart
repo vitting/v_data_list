@@ -179,7 +179,7 @@ class VDataListConfig {
     this.canResetColumnWidthOnLongPress = true,
     this.sortIconAscending = const Icon(Symbols.arrow_upward_alt, color: Colors.white, size: 16),
     this.sortIconDescending = const Icon(Symbols.arrow_downward_alt, color: Colors.white, size: 16),
-    this.noDataMessage = "No data available",
+    this.noDataMessage = 'No data available',
     this.headerBorderRadius = const BorderRadius.all(Radius.circular(8)),
     this.rowBorderRadius = const BorderRadius.all(Radius.circular(8)),
     this.totalCountBorderRadius = const BorderRadius.all(Radius.circular(8)),

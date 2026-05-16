@@ -118,7 +118,7 @@ class _VDataListHeaderCellState extends State<VDataListHeaderCell> {
                 },
                 child: widget.isResizable && (_isHovering || widget.resizableHandlerPinned)
                     ? widget.resizeHandler
-                    : SizedBox.shrink(),
+                    : const SizedBox.shrink(),
               ),
             ],
           ),

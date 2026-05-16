@@ -67,7 +67,7 @@ class VDataListRowCell extends StatelessWidget {
 
     if (config.showTooltip) {
       widget = Tooltip(
-        waitDuration: Duration(milliseconds: 500),
+        waitDuration: const Duration(milliseconds: 500),
         message: data.value,
         textStyle: theme.tooltipTextStyle,
         decoration: BoxDecoration(color: theme.tooltipBackgroundColor, borderRadius: config.tooltipBorderRadius),

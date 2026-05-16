@@ -332,7 +332,7 @@ class _VDataListState extends State<VDataList> {
                     if (index == widget.data.length) {
                       // Show loading indicator at the end
                       final customLoadMoreDataSpinner = widget.loadMoreDataSpinnerBuilder?.call(context, widget.config);
-                      return customLoadMoreDataSpinner ?? VDataListLoadMoreDataSpinner();
+                      return customLoadMoreDataSpinner ?? const VDataListLoadMoreDataSpinner();
                     }
                     final bool isEven = index % 2 == 0;
                     return _buildRow(widget.data[index], isEven, index);

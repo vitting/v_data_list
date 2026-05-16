@@ -76,7 +76,7 @@ class _VDataListRowState extends State<VDataListRow> {
             children: [
               ...widget.columnDefinitions.entries.map((entry) {
                 final columnDef = entry.value;
-                final data = widget.rowData[columnDef.id] ?? VDataListRowCellData(value: '');
+                final data = widget.rowData[columnDef.id] ?? const VDataListRowCellData(value: '');
                 final cellStyle = widget.rowCellStyleBuilder?.call(context, columnDef.id, data, columnDef);
                 return VDataListRowCell(
                   id: columnDef.id,
@@ -101,7 +101,7 @@ class _VDataListRowState extends State<VDataListRow> {
               if (widget.config.showRowClickHandler)
                 VDataListRowCell(
                   id: '_trigger_cell_vlist_2000',
-                  data: VDataListRowCellData(value: ''),
+                  data: const VDataListRowCellData(value: ''),
                   config: widget.config,
                   width: widget.config.rowClickHandlerWidth,
                   iconPlacement: RowCellIconPlacement.right,
